@@ -102,16 +102,49 @@
 			echo PHP_EOL;
 
 			if ($this->pv <= 0) {
-				echo "STAY BRONZE NUHB !".PHP_EOL;
+				echo "You décedead !! STAY BRONZE NUHB !".PHP_EOL;
 
 				echo PHP_EOL;
 			} else {
-				echo "GG EZ !".PHP_EOL;
+				echo "Le monstre est mort !! GG EZ !".PHP_EOL;
+				echo PHP_EOL;
+
+				$this->obtenirExperience($this->adversaire->getNiveau());;
 
 				echo PHP_EOL;
 			}
 
 			}
+
+		}
+
+		/**
+		 * @return void
+		 * 
+		 * Augmente la quantité de points d'expérience.
+		 */
+		public function obtenirExperience($monstreNiveau) {
+
+			// ajoute le niveau du monstre vaincu au points d'expérience du joueur.
+			$this->experience += $monstreNiveau;
+
+			// si le joueur a suffisament de points d'expérience.
+			if ($this->experience >= 10*$this->niveau) {
+
+				// le joueur gagne un niveau.
+				$this->niveau++;
+				// les points d'expérience retombe à 0.
+				$this->experience = 0;
+
+				echo "Vous avez gagné un niveau !".PHP_EOL;
+				return;
+
+			}
+
+			// affiche la quantité de points d'expérience requise pour le prochain niveau
+			$expRequis = 10*$this->niveau - $this->experience;
+			echo "Encore {$expRequis} points d'exp pour le prochain niveau !".PHP_EOL;
+			echo PHP_EOL;
 
 		}
 
